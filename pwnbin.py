@@ -16,6 +16,7 @@ def main(argv):
     raw_url = 'http://pastebin.com/raw/'
     start_time = datetime.datetime.now()
     file_name, keywords, append, run_time, match_total, crawl_total = initialize_options(argv)
+    excluded_paste = "PE99uLE0" #send a ticket to pastebin to delete this
 
     print("\nCrawling %s Press ctrl+c to save file to %s" % (root_url, file_name))
 
@@ -28,7 +29,9 @@ def main(argv):
             
             #    For each paste in the public pastes section of home page
             for paste in find_new_pastes(root_html):
-                
+                if paste == excluded_paste:
+                    continue
+
                 #    look at length of paste_list prior to new element
                 length = len(paste_list)
                 paste_list.add(paste)
